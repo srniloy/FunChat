@@ -21,6 +21,7 @@ class Login: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_layout)
+        supportActionBar?.hide()
         mAuth = FirebaseAuth.getInstance()
 
         email_input = findViewById(R.id.emailInput)
@@ -36,12 +37,7 @@ class Login: AppCompatActivity() {
             var email = email_input.text.toString()
             var password = password_input.text.toString()
 
-            var db = FirebaseDatabase.getInstance().getReference("Users")
-            db.setValue(User("shahrir","shahriar@gmail.com","uid23fasdf"))
-                .isSuccessful.let {
-                    Toast.makeText(this,"Added", Toast.LENGTH_SHORT).show()
-                }
-//            login(email, password)
+            login(email, password)
         }
     }
     private fun login(email: String, password: String){

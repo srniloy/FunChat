@@ -23,6 +23,7 @@ class SignUp: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup_layout)
+        supportActionBar?.hide()
         mAuth = FirebaseAuth.getInstance()
 
         name_input = findViewById(R.id.nameInputS)
@@ -52,7 +53,7 @@ class SignUp: AppCompatActivity() {
             }
     }
     private fun addUserDataToDatabase(name: String, email: String, uid: String){
-        mDbRef = FirebaseDatabase.getInstance().getReference("user_data")
+        mDbRef = FirebaseDatabase.getInstance().getReference("user")
         mDbRef.child(uid).setValue(User(name, email, uid))
     }
 }
