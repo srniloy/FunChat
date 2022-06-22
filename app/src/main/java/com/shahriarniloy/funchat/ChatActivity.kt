@@ -3,15 +3,22 @@ package com.shahriarniloy.funchat
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var messageRecyclerView: RecyclerView
@@ -36,7 +43,11 @@ class ChatActivity : AppCompatActivity() {
         SenderRoom = receiverUid + senderUid
         ReceiverRoom = senderUid + receiverUid
 
-        supportActionBar?.title = name
+
+        getSupportActionBar()?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        getSupportActionBar()?.setCustomView(R.layout.custom_action_bar)
+        val actionBarTitle = findViewById<TextView>(R.id.action_bar_title)
+        actionBarTitle.setText(name)
 
         messageRecyclerView = findViewById(R.id.chatRecyclerView)
         sendButton = findViewById(R.id.msgSendBtn)
@@ -45,7 +56,7 @@ class ChatActivity : AppCompatActivity() {
 
 
         messageList = ArrayList()
-        messageAdapter = MessageAdapter(this, messageList)
+        messageAdapter = MessageAdapter(this, messageList, )
 
         val layoutManager = LinearLayoutManager(this)
         messageRecyclerView.layoutManager = layoutManager
@@ -73,7 +84,14 @@ class ChatActivity : AppCompatActivity() {
 
         sendButton.setOnClickListener{
             val message = messageBox.text.toString()
-            val messageObject = Message(message,senderUid)
+
+            val current = LocalDateTime.now()
+
+            val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+            val timeWithDate = current.format(formatter)
+
+
+            val messageObject = Message(message,senderUid, timeWithDate)
             mDbRef.child("chats").child(SenderRoom!!).child("messages").push()
                 .setValue(messageObject).addOnSuccessListener {
                     mDbRef.child("chats").child(ReceiverRoom!!).child("messages").push()
@@ -81,6 +99,24 @@ class ChatActivity : AppCompatActivity() {
                 }
             messageBox.setText("")
         }
+        messageBox.setOnFocusChangeListener{ view, b ->
+            scrollChat()
+        }
+        messageBox.setOnClickListener{
+            scrollChat()
+        }
+
+
+
+
+    }
+
+    fun scrollChat(){
+        Handler(Looper.getMainLooper()).postDelayed({
+            if(messageList.size > 1){
+                messageRecyclerView.smoothScrollToPosition(messageList.size +5)
+            }
+        },500)
     }
 }
 

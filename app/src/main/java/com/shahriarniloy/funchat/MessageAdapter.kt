@@ -1,11 +1,15 @@
 package com.shahriarniloy.funchat
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.provider.Telephony
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -24,14 +28,42 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val currentMessage = messageList[position]
+        var currentMessage = messageList[position]
+        val animationFadeIn = AnimationUtils.loadAnimation(context,R.anim.fade_in)
+        val animationFadeOut = AnimationUtils.loadAnimation(context,R.anim.fade_out)
+
         if(holder.javaClass == SentViewHolder::class.java){
             val viewHolder = holder as SentViewHolder
-            holder.sentMessage.text = currentMessage.message
-        }else{
-            val viewHolder = holder as ReceiveViewHolder
-            holder.receiveMessage.text = currentMessage.message
 
+            viewHolder.sentMessage.text = currentMessage.message
+            viewHolder.sentMessage.setOnClickListener{
+                viewHolder.sendingTimeTxtBox.text = currentMessage.sendingTime
+                if (viewHolder.sendingTimeTxtBox.visibility == View.VISIBLE){
+                    viewHolder.sendingTimeTxtBox.startAnimation(animationFadeOut)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        viewHolder.sendingTimeTxtBox.visibility = View.GONE
+                    }, 500)
+                } else{
+                    viewHolder.sendingTimeTxtBox.visibility = View.VISIBLE
+                    viewHolder.sendingTimeTxtBox.startAnimation(animationFadeIn)
+                }
+            }
+        }else{
+            var viewHolder = holder as ReceiveViewHolder
+            viewHolder.receivingTimeTxtBox.text = currentMessage.sendingTime
+            viewHolder.receiveMessage.text = currentMessage.message
+            viewHolder.receiveMessage.setOnClickListener{
+                viewHolder.receivingTimeTxtBox
+                if (viewHolder.receivingTimeTxtBox.visibility == View.VISIBLE){
+                    viewHolder.receivingTimeTxtBox.startAnimation(animationFadeOut)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        viewHolder.receivingTimeTxtBox.visibility = View.GONE
+                    }, 500)
+                } else{
+                    viewHolder.receivingTimeTxtBox.visibility = View.VISIBLE
+                    viewHolder.receivingTimeTxtBox.startAnimation(animationFadeIn)
+                }
+            }
         }
     }
 
@@ -49,8 +81,11 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
     }
     class SentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val sentMessage =itemView.findViewById<TextView>(R.id.txtSentMessage)
+        val sendingTimeTxtBox =itemView.findViewById<TextView>(R.id.sendingTimeTxtBox)
     }
     class ReceiveViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val receiveMessage =itemView.findViewById<TextView>(R.id.txtReceiveMessage)
+        val receivingTimeTxtBox =itemView.findViewById<TextView>(R.id.receivingTimeTxtBox)
+
     }
 }

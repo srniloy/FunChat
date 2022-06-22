@@ -10,4 +10,6 @@
     <color name="color_01">#6600ff</color>
     <color name="blue">#0066ff</color>
     <color name="green">#009933</color>
+    <color name="shadeOfGreen">#ccffb3</color>
+    <color name="transparent">#FFFFFFFF</color>
 </resources>

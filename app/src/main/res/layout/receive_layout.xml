@@ -7,8 +7,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_alignParentLeft="true"
-        android:background="@drawable/receive_backgound">
+        android:layout_alignParentLeft="true">
 
         <TextView
             android:id="@+id/txtReceiveMessage"
@@ -16,8 +15,20 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="@color/white"
+            android:background="@drawable/receive_backgound"
             android:padding="10dp"
             android:text="This is recieve message"/>
+
+        <TextView
+            android:id="@+id/receivingTimeTxtBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtReceiveMessage"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:paddingVertical="5dp"
+            android:text="Jun 20, 2022, 11:58:50 AM" />
 
     </RelativeLayout>
 
