@@ -1,9 +1,11 @@
 package com.shahriarniloy.funchat
 
+import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.provider.Telephony
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +14,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
-class MessageAdapter(val context: Context, val messageList: ArrayList<Message>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MessageAdapter(val context: Context, val messageList: ArrayList<Message>, val ReceiverRoom: String?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private lateinit var mDbRef: DatabaseReference
     val SENT = 1
     val REVEIVE = 2
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -52,6 +58,15 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
             var viewHolder = holder as ReceiveViewHolder
             viewHolder.receivingTimeTxtBox.text = currentMessage.sendingTime
             viewHolder.receiveMessage.text = currentMessage.message
+
+            mDbRef = Firebase.database.reference
+            viewHolder.receiveMessage.viewTreeObserver.addOnGlobalLayoutListener {
+                when (viewHolder.receiveMessage.visibility){
+
+                }
+            }
+
+
             viewHolder.receiveMessage.setOnClickListener{
                 viewHolder.receivingTimeTxtBox
                 if (viewHolder.receivingTimeTxtBox.visibility == View.VISIBLE){
@@ -87,5 +102,29 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
         val receiveMessage =itemView.findViewById<TextView>(R.id.txtReceiveMessage)
         val receivingTimeTxtBox =itemView.findViewById<TextView>(R.id.receivingTimeTxtBox)
 
+    }
+
+    private fun updateView(){
+
+        mDbRef.child("chats").child(ReceiverRoom!!).child("messages")
+            .addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.childrenCount
+                    for(postSnapshot in snapshot.children){
+                        var message = postSnapshot.getValue(Message::class.java)
+                        if(message?.viewed == false){
+                            message?.viewed = true
+                            Toast.makeText(context, "viewed", Toast.LENGTH_SHORT).show()
+                        }
+
+                        mDbRef.child("chats").child(ReceiverRoom!!).child("messages")
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
     }
 }

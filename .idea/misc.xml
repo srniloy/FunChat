@@ -3,20 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/drawable/border.xml" value="0.218" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/drawable/edt_background.xml" value="0.196" />
+        <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.219" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/drawable/msg_background.xml" value="0.2065" />
+        <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/drawable/receive_backgound.xml" value="0.219" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/drawable/recieve_backgound.xml" value="0.2065" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/drawable/sent_background.xml" value="0.2065" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/drawable/users_list_backgound.xml" value="0.2265" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/drawable/users_list_background.xml" value="0.2265" />
-        <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/activity_chat.xml" value="0.25" />
+        <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/activity_chat.xml" value="0.2" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/app_bar.xml" value="0.259375" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/custom_action_bar.xml" value="0.259375" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/login_layout.xml" value="0.259375" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/receive_layout.xml" value="0.259375" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/recieve_layout.xml" value="0.259375" />
-        <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/sent_layout.xml" value="0.4" />
+        <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/sent_layout.xml" value="0.2" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/layout/user_layout.xml" value="0.259375" />
         <entry key="..\:/All Codes/Kotlin Projects/FunChat/app/src/main/res/menu/menu.xml" value="0.259375" />
       </map>

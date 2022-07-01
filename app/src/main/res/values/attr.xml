@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="dt">
+        <attr name="textColorOnPrimary" format="color"/>
+        <attr name="userListBgColor" format="color"/>
+        <attr name="layoutBg" format="color"/>
+    </declare-styleable>
+</resources>

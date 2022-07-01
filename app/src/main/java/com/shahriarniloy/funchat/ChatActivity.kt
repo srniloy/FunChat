@@ -56,7 +56,7 @@ class ChatActivity : AppCompatActivity() {
 
 
         messageList = ArrayList()
-        messageAdapter = MessageAdapter(this, messageList, )
+        messageAdapter = MessageAdapter(this, messageList, ReceiverRoom)
 
         val layoutManager = LinearLayoutManager(this)
         messageRecyclerView.layoutManager = layoutManager

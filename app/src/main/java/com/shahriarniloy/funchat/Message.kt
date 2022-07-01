@@ -1,16 +1,24 @@
 package com.shahriarniloy.funchat
 
-import java.sql.Time
+import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
 
-class Message {
-    var message: String? = null
-    var senderId: String? = null
-    var sendingTime: String? = null
+@IgnoreExtraProperties
+class Message(
+    var message: String? = "",
+    var senderId: String? = "",
+    var sendingTime: String? = "",
+    var viewed: Boolean? = false
+) {
 
-    constructor(){}
-    constructor(message: String?, senderId: String?, sendingTime: String?){
-        this.message = message
-        this.senderId = senderId
-        this.sendingTime = sendingTime
+
+    @Exclude
+    fun toMap(): Map<String, Any?>{
+        return mapOf(
+            "message" to message,
+            "senderId" to senderId,
+            "sendingTime" to sendingTime,
+            "viewed" to viewed
+        )
     }
 }
